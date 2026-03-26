@@ -3,6 +3,12 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'Dockerfile'
+      - 'requirements.txt'
+      - 'app.py'
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -33,7 +39,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/hein1979/pyws:latest
+            ghcr.io/${{ github.repository_owner }}/pyws:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=HTTP Server
